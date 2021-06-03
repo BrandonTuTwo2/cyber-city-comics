@@ -21,12 +21,9 @@ const fs = require('fs');
 const JavaScriptObfuscator = require('javascript-obfuscator');
 
 // Important, pass in port as in `npm run dev 1234`, do not change
-//const portNum = 80;
-const PORT = process.env.PORT ||  80;
+const portNum = process.env.PORT || 1234;
 
-app.listen(PORT, () => {
-    console.log(`Our app is running on port ${ PORT }`);
-});
+
 
 // Send HTML at root, do not change
 app.get('/',function(req,res){
@@ -51,5 +48,5 @@ app.get('/index.js',function(req,res){
 
 /*testy = JSON.parse(testy);
 console.log(testy);*/
-//app.listen(portNum);
-console.log('Running app at localhost: ' + PORT);
+app.listen(portNum);
+console.log('Running app at localhost: ' + portNum);
