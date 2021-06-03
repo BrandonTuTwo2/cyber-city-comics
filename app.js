@@ -7,6 +7,7 @@
 const express = require("express");
 const app     = express();
 const path    = require("path");
+const axios = require("axios");
 /*const fileUpload = require('express-fileupload');
 const uploadPath = './uploads';
 const xsdPath = './parser/gpx.xsd';
@@ -45,6 +46,36 @@ app.get('/index.js',function(req,res){
   });
 });
 
+
+axios.get('http://xkcd.com/614/info.0.json')
+  .then(result => {
+    let test = result.data;
+    //test = JSON.parse(test);
+    console.log(test["year"]);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+
+//returns the JSON object from the url
+app.get('/nextPage', function(req,res){
+  let nextPage = req.query.page;
+  let url = 'http://xkcd.com/';
+  let comicJSON = {};
+  console.log("hello");
+
+  axios.get(url + nextPage + '/info.0.json')
+    .then(result =>{
+      comicJSON = result.data;
+      console.log(comicJSON);
+      res.send(comicJSON);
+    })
+    .catch(error => {
+      console.log(error);
+      res.send({error});
+    })
+});
 
 /*testy = JSON.parse(testy);
 console.log(testy);*/
