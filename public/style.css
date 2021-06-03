@@ -1,0 +1,91 @@
+
+
+table{
+ overflow-y:scroll;
+ overflow-x:scroll;
+height:400px;
+width:1000px;
+display:block;
+border: 1px solid black;
+
+}
+.test input{
+  display: table;
+}
+
+.test2 {
+  display: table-cell;
+}
+
+
+#fileViewTable {
+  background-color: #f4e1d2;
+}
+
+#componentViewTable {
+  background-color: #f4e1d2;
+}
+
+#componentViewTable2 {
+  background-color: #f4e1d2;
+}
+
+#dbViewTable {
+  background-color: #f4e1d2;
+}
+
+th {
+width:100px;
+border: 1px solid black;
+background:white;
+}th:nth-of-type(2){
+ left:auto;
+}td{
+width:200px;
+border: 1px solid black;
+}
+
+html {
+    width: 60%;
+    height: 100%;
+    min-height: 100%;
+    margin: 0 auto;
+    font-size: 16px;
+    background-color: #e0f2f1;
+}
+body {
+    height: 100%;
+    min-height: 100%;
+    line-height: 1.75;
+    background-color: #e0f2f1;
+}
+a:link:hover {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    text-decoration: underline;
+    cursor: pointer;
+    cursor: hand;
+}
+input[type=submit], button {
+    cursor: pointer;
+    cursor: hand;
+}
+@media(max-width: 900px) {
+    html {
+        font-size: 14px !important;
+        width: 80% !important;
+    }
+}
+@media(max-width: 480px) {
+    html {
+        font-size: 12px !important;
+        width: 90% !important;
+    }
+}
+@media(max-width: 320px) {
+    html {
+        font-size: 12px !important;
+        width: 100% !important;
+    }
+}
