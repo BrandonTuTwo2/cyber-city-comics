@@ -77,6 +77,7 @@ app.get('/nextPage', function(req,res){
     })
 });
 
+
 /*testy = JSON.parse(testy);
 console.log(testy);*/
 app.listen(portNum);
