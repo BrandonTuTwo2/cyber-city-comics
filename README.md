@@ -1,5 +1,6 @@
 # cyber-city-comics
 **Creator:** Brandon Tu
+
 **Description:** A web application/website that displays the xkcd comics (using its API) and various functions related to navigating the comics. This is for a programming case study/challenge.  
 
 **To run locally:**
