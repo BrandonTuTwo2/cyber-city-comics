@@ -38,25 +38,32 @@ app.get('/index.js',function(req,res){
 });
 
 
-axios.get('http://xkcd.com/614/info.0.json')
-  .then(result => {
-    let test = result.data;
-    //test = JSON.parse(test);
-    console.log(test["year"]);
-  })
-  .catch(error => {
-    console.log(error);
-  });
-
 
 //returns the JSON object from the url
 app.get('/nextPage', function(req,res){
   let nextPage = req.query.page;
   let url = 'http://xkcd.com/';
   let comicJSON = {};
-  console.log("hello");
 
   axios.get(url + nextPage + '/info.0.json')
+    .then(result =>{
+      comicJSON = result.data;
+      console.log(comicJSON);
+      res.send(comicJSON);
+    })
+    .catch(error => {
+      console.log(error);
+      res.send({error});
+    })
+});
+
+
+app.get('/latestPage', function(req,res){
+  let nextPage = req.query.page;
+  let url = 'http://xkcd.com/info.0.json';
+  let comicJSON = {};
+
+  axios.get(url)
     .then(result =>{
       comicJSON = result.data;
       console.log(comicJSON);

@@ -44,8 +44,17 @@ function changeURL(page) {
   document.location.href = newURL;
 }
 
+function isValidPage(newPageInt, latestComicNumber) {
+  console.log(newPageInt);
+  console.log(latestComicNumber);
+  if(newPageInt <= latestComicNumber && newPageInt >= 1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function changePage(currentComicString, currentComic) {
-  let test;
   jQuery.ajax({
       type: 'get',
       dataType: 'json',
@@ -57,7 +66,7 @@ function changePage(currentComicString, currentComic) {
         console.log(data);
         changeImage(data["img"]);
         changeDate(data["year"],data["month"],data["day"]);
-        test = data["transcript"];
+
         changeTranscript(data["transcript"]);
         //test = JSON.parse(test);
         changeURL(currentComic);
@@ -68,31 +77,77 @@ function changePage(currentComicString, currentComic) {
           console.log(error);
       }
   });
+
+  console.log("testtestsets");
 }
 
+function getLatest() {
+  var latestComicNumber = 0;
+  jQuery.ajax({
+      type: 'get',
+      dataType: 'json',
+      url: '/latestPage',
+      data: {
+      },
+      success: function (data) {
+        latestComicNumber = Number(data["num"]);
+        console.log("hi there " + latestComicNumber);
+
+      },
+      fail: function(error) {
+          // Non-200 return, do something with error
+          console.log(error);
+      },
+      async:false
+  });
+
+
+  return latestComicNumber;
+}
+
+
 jQuery(document).ready(function() {
-  let currentComic = 300;
+  let currentComic = 1000;
   let buttonClicked = 0;
   let currentComicString = "";
+  let latestComicNumber = 2472;
 
-  currentComicString = currentComic.toString();
-  changePage(currentComicString,currentComic);
-  changeURL(300);
+
+  latestComicNumber =  getLatest();
+
+  changePage(currentComicString, currentComic);
 
   document.getElementById('left_btn').onclick = function(e) {
     console.log("left button clicked");
-    currentComic -= 1;
-    currentComicString = currentComic.toString();
-    changePage(currentComicString,currentComic);
-    buttonClicked = 1;
+    if(currentComic <= 1) {
+      alert("There is no comic before this one.");
+    } else {
+      currentComic -= 1;
+      currentComicString = currentComic.toString();
+      changePage(currentComicString,currentComic);
+      buttonClicked = 1;
+    }
   }
 
   document.getElementById('right_btn').onclick = function(e) {
     console.log("right button clicked");
-    currentComic += 1;
-    currentComicString = currentComic.toString();
+    if(currentComic == latestComicNumber) {
+      alert("There is no comic after this one.");
+    } else {
+      currentComic += 1;
+      currentComicString = currentComic.toString();
+      changePage(currentComicString,currentComic);
+      buttonClicked = 1;
+    }
+  }
+
+  document.getElementById('random_btn').onclick = function(e) {
+    console.log("random button clicked");
+    let randPage = 0;
+    randPage = Math.floor(Math.random() * (latestComicNumber - 1) + 1);
+    currentComic = randPage;
+
     changePage(currentComicString,currentComic);
-    buttonClicked = 1;
   }
 
 
@@ -105,10 +160,13 @@ jQuery(document).ready(function() {
          newPage = newPage.substring(1);
 
          var newPageInt = Number(newPage);
-
-         changePage(newPage,newPageInt);
-         currentComic = newPageInt;
-         console.log(newPage);
+         if(isValidPage(newPageInt,latestComicNumber)) {
+           changePage(newPage,newPageInt);
+           currentComic = newPageInt;
+           console.log(newPage);
+         } else {
+           alert("Invalid page number please try again.");
+         }
        }
   });
 
