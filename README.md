@@ -11,6 +11,6 @@
 Alternatively you could also go to go here: https://cyber-city-comic.herokuapp.com/ to see it in action
 
 All of the comics shown belong to and is created by Randall Munroe of xkcd comics
-His website : https://xkcd.com/
+his website : https://xkcd.com/
 
 Latest Updated Date: 2021 06 05
