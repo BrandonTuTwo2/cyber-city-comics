@@ -13,6 +13,10 @@ h2 {
 #navigators {
   text-align: center;
 }
+
+#transcriptSection {
+  text-align: center;
+}
 html {
     width: 60%;
     height: 100%;

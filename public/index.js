@@ -2,6 +2,32 @@ function changeImage(url) {
   document.getElementById("comic").src = url;
 }
 
+function changeTitle(name, page) {
+  document.getElementById("title").innerText = name + ", #" + page;
+}
+
+function changeTranscript(newTranscript) {
+  let editedTranscript = "";
+
+  //removes weird characters
+  for(var i = 0;i < newTranscript.length;i++) {
+    if(newTranscript.charCodeAt(i) <= 127) {
+      editedTranscript += newTranscript.charAt(i);
+    }
+  }
+
+  editedTranscript = editedTranscript.replace(/\n/g,"\n\n");
+
+  editedTranscript = editedTranscript.replace(/\[\[/g, "\n*");
+  editedTranscript = editedTranscript.replace(/\]\]/g,"*\n");
+
+  editedTranscript = editedTranscript.replace(/\{\{/g, "\n*");
+  editedTranscript = editedTranscript.replace(/\}\}/g,"*\n");
+
+
+  document.getElementById("transcript").innerText = editedTranscript;
+}
+
 function changeDate(year, month, day) {
   document.getElementById("date").innerText = year + "/" + month + "/" + day;
 }
@@ -19,10 +45,11 @@ function changeURL(page) {
 }
 
 function changePage(currentComicString, currentComic) {
+  let test;
   jQuery.ajax({
       type: 'get',
       dataType: 'json',
-      url: '/nextPage',   
+      url: '/nextPage',
       data: {
           page: currentComicString,
       },
@@ -30,7 +57,11 @@ function changePage(currentComicString, currentComic) {
         console.log(data);
         changeImage(data["img"]);
         changeDate(data["year"],data["month"],data["day"]);
+        test = data["transcript"];
+        changeTranscript(data["transcript"]);
+        //test = JSON.parse(test);
         changeURL(currentComic);
+        changeTitle(data["title"],currentComicString);
       },
       fail: function(error) {
           // Non-200 return, do something with error
@@ -42,12 +73,16 @@ function changePage(currentComicString, currentComic) {
 jQuery(document).ready(function() {
   let currentComic = 300;
   let buttonClicked = 0;
+  let currentComicString = "";
+
+  currentComicString = currentComic.toString();
+  changePage(currentComicString,currentComic);
   changeURL(300);
 
   document.getElementById('left_btn').onclick = function(e) {
     console.log("left button clicked");
     currentComic -= 1;
-    let currentComicString = currentComic.toString();
+    currentComicString = currentComic.toString();
     changePage(currentComicString,currentComic);
     buttonClicked = 1;
   }
@@ -55,7 +90,7 @@ jQuery(document).ready(function() {
   document.getElementById('right_btn').onclick = function(e) {
     console.log("right button clicked");
     currentComic += 1;
-    let currentComicString = currentComic.toString();
+    currentComicString = currentComic.toString();
     changePage(currentComicString,currentComic);
     buttonClicked = 1;
   }

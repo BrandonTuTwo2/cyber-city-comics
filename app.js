@@ -1,21 +1,12 @@
 'use strict'
 
-// C library API will we be using C idk
-//const ffi = require('ffi-napi');
 
 // Express App (Routes)
 const express = require("express");
 const app     = express();
 const path    = require("path");
 const axios = require("axios");
-/*const fileUpload = require('express-fileupload');
-const uploadPath = './uploads';
-const xsdPath = './parser/gpx.xsd';
-const uploadPath2 = './uploads/';
-const forTesting = './uploads/simple.gpx';
-const forTesting2 = './uploads/simple2.gpx';
-app.use(fileUpload());
-app.use(express.static(path.join(__dirname+'/uploads')));*/
+
 
 // Minimization
 const fs = require('fs');
