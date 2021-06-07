@@ -15,4 +15,7 @@ All of the comics shown belong to and is created by Randall Munroe of xkcd comic
 
 His website : https://xkcd.com/
 
+**Additional Note:** to switch to a specific comic enter in the comic's number after the # eg. https://cyber-city-comic.herokuapp.com/#600
+
+
 Latest Updated Date: 2021 06 05
